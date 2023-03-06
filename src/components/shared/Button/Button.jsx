@@ -9,9 +9,10 @@ const Button = ({
   isLoading = false,
   children,
   iconSize,
+  onClick,
 }) => {
   return (
-    <StyledButton type={type} disabled={disabled}>
+    <StyledButton type={type} disabled={disabled} onClick={onClick}>
       {isLoading && Icon && (
         <Loader>
           <BiLoaderCircle size={iconSize} />

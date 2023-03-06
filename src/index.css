@@ -11,10 +11,6 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: Rubik, sans-serif;
-  font-size: 14px;
-  color: #000000;
-  background-color: #90adc6;
 }
 
 h1,

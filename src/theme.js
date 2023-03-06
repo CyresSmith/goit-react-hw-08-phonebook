@@ -3,7 +3,7 @@ const shadowColor = '235deg 32% 13%';
 const theme = {
   colors: {
     white: '#fff',
-    text: '#000',
+    text: '#00000',
     background: '#90ADC6',
     primary: '#E9EAEC',
     secondary: '#333652',
@@ -52,7 +52,11 @@ const theme = {
   },
 
   sizes: {
-    container: '1200px',
+    container: '1216px',
+  },
+
+  transition: {
+    primary: 'all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275)',
   },
 
   shadow: {
@@ -78,3 +82,8 @@ const theme = {
 };
 
 export default theme;
+
+document.body.style.fontFamily = theme.fonts.body;
+document.body.style.fontSize = theme.fontSizes.m;
+document.body.style.color = theme.colors.text;
+document.body.style.backgroundColor = theme.colors.background;

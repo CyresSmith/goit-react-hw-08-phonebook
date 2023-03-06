@@ -1,3 +1,4 @@
+import { BiColumns } from 'react-icons/bi';
 import styled from 'styled-components';
 import {
   color,
@@ -11,6 +12,7 @@ import {
   position,
   shadow,
   variant,
+  flex,
 } from 'styled-system';
 
 const Box = styled('div')(

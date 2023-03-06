@@ -13,14 +13,14 @@ export const StyledButton = styled('button')`
   cursor: pointer;
   border: ${theme.borders.none};
   border-radius: ${theme.radii.normal};
-  box-shadow: ${theme.shadow.medium};
+  box-shadow: ${theme.shadow.low};
   transition-property: all;
   transition-duration: 250ms;
   transition-timing-function: ease-in-out;
 
   :hover:not(:disabled) {
     background-color: ${theme.colors.accent};
-    box-shadow: ${theme.shadow.high};
+    box-shadow: ${theme.shadow.medium};
     scale: 1.1;
   }
 `;

@@ -5,30 +5,18 @@ import theme from 'theme';
 
 const Section = ({ title, children }) => {
   return (
-    <Box
-      variant="section"
-      as="section"
-      backgroundColor="secondary"
-      ml="auto"
-      mr="auto"
-      pl={[4]}
-      pr={[4]}
-      borderRadius={theme.radii.high}
-      boxShadow={theme.shadow.high}
-      mt={[6]}
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-    >
-      {title && <Title>{title}</Title>}
-      {children}
+    <Box variant="section" as="section" backgroundColor="background">
+      <Box variant="container">
+        {title && <Title>{title}</Title>}
+        {children}
+      </Box>
     </Box>
   );
 };
 
 Section.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.object.isRequired,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
 };
 
 export default Section;
