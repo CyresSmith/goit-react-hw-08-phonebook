@@ -4,14 +4,11 @@ import { useSelector } from 'react-redux';
 import { getFilter } from 'redux/selectors';
 import { useGetContactsQuery } from 'redux/contactsAPI';
 
-import { InfinitySpin } from 'react-loader-spinner';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { ContactsItem } from './ContactItem';
 import { ContactsList } from './Contacts.styled';
 import Modal from './Modal';
-import theme from 'theme';
-
 import useToggleModal from 'hooks/useToggleModal';
 
 const Contacts = () => {
@@ -27,18 +24,18 @@ const Contacts = () => {
 
   const { filterValue } = useSelector(getFilter);
 
-  const visibleСontacts = (value, contacts) => {
+  const visibleContacts = (value, contacts) => {
     if (value) {
-      const visibleСontacts = contacts.filter(({ name }) => {
+      const visibleContacts = contacts.filter(({ name }) => {
         return name.toLowerCase().includes(value);
       });
-      if (visibleСontacts.length === 0) {
+      if (visibleContacts.length === 0) {
         Notify.failure('No contacts with this name', {
           showOnlyTheLastOne: true,
           position: 'right-top',
         });
       } else {
-        return visibleСontacts;
+        return visibleContacts;
       }
     }
     return contacts;
@@ -46,11 +43,8 @@ const Contacts = () => {
 
   return (
     <>
-      {!myContacts.length > 0 && isLoading && (
-        <InfinitySpin width="200" color={theme.colors.accent} />
-      )}
       <ContactsList>
-        {visibleСontacts(filterValue, myContacts).map(contact => (
+        {visibleContacts(filterValue, myContacts).map(contact => (
           <ContactsItem
             key={contact.id}
             handleModal={handleModal}

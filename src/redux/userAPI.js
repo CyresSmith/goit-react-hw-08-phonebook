@@ -8,7 +8,7 @@ export const userAPI = createApi({
     baseUrl: 'https://connections-api.herokuapp.com/users',
   }),
 
-  tagTypes: ['userAPI'],
+  tagTypes: ['auth'],
 
   endpoints: builder => ({
     userSignUp: builder.mutation({
@@ -17,7 +17,7 @@ export const userAPI = createApi({
         method: 'POST',
         data: user,
       }),
-      invalidatesTags: ['userAPI'],
+      invalidatesTags: ['auth'],
     }),
 
     userLogIn: builder.mutation({
@@ -26,7 +26,7 @@ export const userAPI = createApi({
         method: 'POST',
         data: user,
       }),
-      invalidatesTags: ['userAPI'],
+      invalidatesTags: ['auth'],
     }),
 
     userLogOut: builder.mutation({
@@ -34,12 +34,15 @@ export const userAPI = createApi({
         url: '/logout',
         method: 'POST',
       }),
-      invalidatesTags: ['userAPI'],
+      invalidatesTags: ['auth'],
     }),
 
     getCurrentUser: builder.query({
-      query: () => '/current',
-      providesTags: ['Contacts'],
+      query: () => ({
+        url: '/current',
+        method: 'GET',
+      }),
+      providesTags: ['auth'],
     }),
   }),
 });

@@ -1,12 +1,7 @@
-import Section from 'components/shared/Section';
-import Box from 'components/shared/Box';
+import Hero from 'components/Hero';
 
 const HomePage = () => {
-  return (
-    <Section>
-      <Box />
-    </Section>
-  );
+  return <Hero />;
 };
 
 export default HomePage;

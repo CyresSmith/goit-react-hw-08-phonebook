@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { Notify } from 'notiflix';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 import { RiLogoutBoxFill } from 'react-icons/ri';
 
@@ -21,6 +22,10 @@ const User = () => {
 
   const [userLogOut, { isError, isLoading, isSuccess, error }] =
     useUserLogOutMutation();
+
+  const handleLogout = () => {
+    userLogOut();
+  };
 
   const { user } = useSelector(getAuth);
 
@@ -56,7 +61,7 @@ const User = () => {
         icon={RiLogoutBoxFill}
         disabled={isLoading ? true : false}
         children="Log out"
-        onClick={userLogOut}
+        onClick={handleLogout}
         iconSize={20}
       />
     </Box>

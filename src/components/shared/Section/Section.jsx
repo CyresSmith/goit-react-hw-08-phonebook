@@ -3,10 +3,10 @@ import Title from 'components/shared/Title/Title.styled';
 import { PropTypes } from 'prop-types';
 import theme from 'theme';
 
-const Section = ({ title, children }) => {
+const Section = ({ title, children, variant = 'container' }) => {
   return (
     <Box variant="section" as="section" backgroundColor="background">
-      <Box variant="container">
+      <Box variant={variant}>
         {title && <Title>{title}</Title>}
         {children}
       </Box>

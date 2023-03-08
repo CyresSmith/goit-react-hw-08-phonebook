@@ -35,6 +35,7 @@ const AddContactForm = () => {
       isSuccess: isContactAddSuccec,
       isError: isContactAddError,
       error: ContactaddError,
+      isUninitialized,
     },
   ] = useAddContactMutation();
 
@@ -58,14 +59,14 @@ const AddContactForm = () => {
     }
   };
 
-  if (isContactAddSuccec) {
+  if (!isUninitialized && isContactAddSuccec) {
     Notify.success('Contact added successfully', {
       showOnlyTheLastOne: true,
       position: 'right-top',
     });
   }
 
-  if (isContactAddError) {
+  if (!isUninitialized && isContactAddError) {
     Notify.failure('What a shame! Contact Add Error', {
       showOnlyTheLastOne: true,
       position: 'right-top',

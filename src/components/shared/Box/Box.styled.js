@@ -40,6 +40,11 @@ const Box = styled('div')(
         pt: [5],
         pb: [5],
       },
+
+      hero: {
+        pt: [5],
+        pb: [5],
+      },
     },
   })
 );

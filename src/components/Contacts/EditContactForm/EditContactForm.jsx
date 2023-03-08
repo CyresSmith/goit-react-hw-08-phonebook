@@ -27,14 +27,16 @@ const ValidationSchema = Yup.object().shape({
 });
 
 const EditContactForm = ({ data, toggleModal }) => {
-  const [editContact, { isLoading, isSuccess, isError, error }] =
-    useEditContactMutation();
+  const [
+    editContact,
+    { isLoading, isSuccess, isError, error, isUninitialized },
+  ] = useEditContactMutation();
 
-  if (isSuccess) {
+  if (!isUninitialized && isSuccess) {
     Notify.warning('Contact successfully changed');
   }
 
-  if (isError) {
+  if (!isUninitialized && isError) {
     switch (error.code) {
       case 400:
         Notify.failure('What a shame! Contact update failed.');
@@ -62,8 +64,9 @@ const EditContactForm = ({ data, toggleModal }) => {
           number: tel,
         };
 
-        editContact({ contact: contact, id: data.id });
-        toggleModal();
+        editContact({ contact: contact, id: data.id }).then(response =>
+          toggleModal()
+        );
       }}
     >
       <Form>
