@@ -5,7 +5,6 @@ import { FilterBox, Label, Input } from './Filter.styled';
 import { setFilterValue } from 'redux/filterSlice';
 import Box from 'components/shared/Box';
 import theme from 'theme';
-import FormField from 'components/shared/FormField';
 
 const Filter = () => {
   const dispatch = useDispatch();

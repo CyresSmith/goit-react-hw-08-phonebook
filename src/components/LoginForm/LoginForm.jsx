@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { Notify } from 'notiflix';
 
 import { IoIosMail } from 'react-icons/io';
@@ -29,15 +30,17 @@ const LoginForm = () => {
   const [userLogIn, { data, isError, isLoading, isSuccess }] =
     useUserLogInMutation();
 
-  if (isSuccess) {
-    Notify.success(`Woohoo! Glad to see you again ${data.user.name}! `);
-    setAuthHeader(data.token);
-    dispatch(setAuth(data));
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      Notify.success(`Woohoo! Glad to see you again ${data.user.name}! `);
+      setAuthHeader(data.token);
+      dispatch(setAuth(data));
+    }
 
-  if (isError) {
-    Notify.failure(`What a shame! User login error.`);
-  }
+    if (isError) {
+      Notify.failure(`What a shame! User login error.`);
+    }
+  }, [data, dispatch, isError, isSuccess]);
 
   return (
     <Formik

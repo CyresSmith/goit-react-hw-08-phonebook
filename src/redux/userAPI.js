@@ -42,7 +42,6 @@ export const userAPI = createApi({
         url: '/current',
         method: 'GET',
       }),
-      providesTags: ['auth'],
     }),
   }),
 });

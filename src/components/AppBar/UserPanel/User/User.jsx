@@ -19,38 +19,27 @@ import { getAuth } from 'redux/selectors';
 
 const User = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector(getAuth);
 
-  const [userLogOut, { isError, isLoading, isSuccess, error }] =
+  const [userLogOut, { isError, isLoading, isSuccess }] =
     useUserLogOutMutation();
 
   const handleLogout = () => {
     userLogOut();
   };
 
-  const { user } = useSelector(getAuth);
-
-  if (isSuccess) {
-    dispatch(setAuth(authInitialState));
-    dispatch(contactsApi.util.resetApiState());
-    clearAuthHeader();
-    Notify.info(`Successfully log out`);
-  }
-
-  if (isError) {
-    switch (error.status) {
-      case 401:
-        Notify.failure(`What a shame! User log out error.`);
-        break;
-
-      case 500:
-        Notify.failure(`What a shame! Some problems with server.`);
-        break;
-
-      default:
-        Notify.failure(`What a shame! Some problems happend.`);
-        break;
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setAuth(authInitialState));
+      dispatch(contactsApi.util.resetApiState());
+      clearAuthHeader();
+      Notify.info(`Successfully log out`);
     }
-  }
+
+    if (isError) {
+      Notify.failure(`What a shame! Some problems happend.`);
+    }
+  }, [dispatch, isError, isSuccess]);
 
   return (
     <Box display="flex" alignItems="center">

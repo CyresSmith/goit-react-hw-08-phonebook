@@ -25,28 +25,31 @@ const App = () => {
     if (!token) {
       return;
     }
-
     setAuthHeader(token);
   }, [token]);
 
   const { data, isLoading, isError, isFetching, isSuccess } =
     useGetCurrentUserQuery(token, { skip: token === '' });
 
-  if (isSuccess) {
-    dispatch(setUser(data));
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setUser(data));
+    }
+  }, [data, dispatch, isSuccess]);
 
   return (
     <Suspense fallback={<Spinner />}>
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/contacts" element={<ContactsPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
+      {!isLoading && !isFetching && (
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="/contacts" element={<ContactsPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      )}
     </Suspense>
   );
 };

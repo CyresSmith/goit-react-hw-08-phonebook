@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useEffect } from 'react';
 
 import { IoIosCall, IoMdPerson } from 'react-icons/io';
 import { RiSave3Fill } from 'react-icons/ri';
@@ -32,24 +33,15 @@ const EditContactForm = ({ data, toggleModal }) => {
     { isLoading, isSuccess, isError, error, isUninitialized },
   ] = useEditContactMutation();
 
-  if (!isUninitialized && isSuccess) {
-    Notify.warning('Contact successfully changed');
-  }
-
-  if (!isUninitialized && isError) {
-    switch (error.code) {
-      case 400:
-        Notify.failure('What a shame! Contact update failed.');
-        break;
-
-      case 401:
-        Notify.failure('What a shame! Missing authorization token.');
-        break;
-
-      default:
-        break;
+  useEffect(() => {
+    if (!isUninitialized && isSuccess) {
+      Notify.warning('Contact successfully changed');
     }
-  }
+
+    if (!isUninitialized && isError) {
+      Notify.failure('What a shame! Contact update failed.');
+    }
+  }, [isError, isSuccess, isUninitialized]);
 
   return (
     <Formik

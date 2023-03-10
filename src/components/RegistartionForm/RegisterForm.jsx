@@ -15,6 +15,7 @@ import Button from 'components/shared/Button';
 import Box from 'components/shared/Box';
 import FormField from 'components/shared/FormField';
 import { RegisterForm as Form } from './RegisterForm.styled';
+import { useEffect } from 'react';
 
 const ValidationSchema = Yup.object().shape({
   name: Yup.string()
@@ -29,32 +30,22 @@ const ValidationSchema = Yup.object().shape({
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
-  const [userSignUp, { data, isError, isLoading, isSuccess, error }] =
+  const [userSignUp, { data, isError, isLoading, isSuccess }] =
     useUserSignUpMutation();
 
-  if (isSuccess) {
-    Notify.success(
-      `Welcome aboard, ${data.user.name}! Registration successful!`
-    );
-    setAuthHeader(data.token);
-    dispatch(setAuth(data));
-  }
-
-  if (isError) {
-    switch (error.status) {
-      case 400:
-        Notify.failure(`What a shame! User creation error.`);
-        break;
-
-      case 500:
-        Notify.failure(`What a shame! Server error.`);
-        break;
-
-      default:
-        Notify.failure(`What a shame! Some problems happend.`);
-        break;
+  useEffect(() => {
+    if (isSuccess) {
+      Notify.success(
+        `Welcome aboard, ${data.user.name}! Registration successful!`
+      );
+      setAuthHeader(data.token);
+      dispatch(setAuth(data));
     }
-  }
+
+    if (isError) {
+      Notify.failure(`What a shame! Some problems happend.`);
+    }
+  }, [data, dispatch, isError, isSuccess]);
 
   return (
     <Formik
@@ -71,8 +62,9 @@ const RegisterForm = () => {
           password: password.trim(),
         };
 
-        resetForm();
+        // console.log(user);
         userSignUp(user);
+        resetForm();
       }}
     >
       <Form>

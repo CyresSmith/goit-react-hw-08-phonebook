@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { IoMdPerson, IoIosCall } from 'react-icons/io';
 import { MdPersonRemoveAlt1 } from 'react-icons/md';
 import { BiLoaderCircle } from 'react-icons/bi';
@@ -49,36 +50,19 @@ export const ContactsItem = ({ handleModal, contact }) => {
     );
   };
 
-  if (isRemoveSuccess) {
-    Notify.warning(`Сontact successfully deleted`, {
-      position: 'right-top',
-    });
-  }
-
-  if (isRemoveError) {
-    switch (removeError.code) {
-      case 401:
-        Notify.failure(`What a shame! Some problems with authorization.`, {
-          position: 'right-top',
-        });
-        break;
-
-      case 404:
-        Notify.failure(`What a shame! There is no such user collection.`, {
-          position: 'right-top',
-        });
-        break;
-
-      case 500:
-        Notify.failure(`What a shame! Some server error, try again later`, {
-          position: 'right-top',
-        });
-        break;
-
-      default:
-        break;
+  useEffect(() => {
+    if (isRemoveSuccess) {
+      Notify.warning(`Contact successfully deleted`, {
+        position: 'right-top',
+      });
     }
-  }
+
+    if (isRemoveError) {
+      Notify.failure(`What a shame! Some problems with contact removing.`, {
+        position: 'right-top',
+      });
+    }
+  }, [isRemoveError, isRemoveSuccess]);
 
   return (
     <Contact>

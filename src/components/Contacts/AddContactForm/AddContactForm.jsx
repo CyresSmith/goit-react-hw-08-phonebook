@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Notify } from 'notiflix';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 
 import { IoIosCall, IoMdPerson, IoMdPersonAdd } from 'react-icons/io';
 
@@ -59,19 +59,21 @@ const AddContactForm = () => {
     }
   };
 
-  if (!isUninitialized && isContactAddSuccec) {
-    Notify.success('Contact added successfully', {
-      showOnlyTheLastOne: true,
-      position: 'right-top',
-    });
-  }
+  useEffect(() => {
+    if (!isUninitialized && isContactAddSuccec) {
+      Notify.success('Contact added successfully', {
+        showOnlyTheLastOne: true,
+        position: 'right-top',
+      });
+    }
 
-  if (!isUninitialized && isContactAddError) {
-    Notify.failure('What a shame! Contact Add Error', {
-      showOnlyTheLastOne: true,
-      position: 'right-top',
-    });
-  }
+    if (!isUninitialized && isContactAddError) {
+      Notify.failure('What a shame! Contact Add Error', {
+        showOnlyTheLastOne: true,
+        position: 'right-top',
+      });
+    }
+  }, [isContactAddError, isContactAddSuccec, isUninitialized]);
 
   return (
     <Formik
